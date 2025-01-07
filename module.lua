@@ -14,7 +14,7 @@ local GlobalITAPI = Instance.new("BindableEvent")
 GlobalITAPI.Name = "GlobalITAPI"
 GlobalITAPI.Parent = game.ReplicatedFirst
 
-local webhook = "https://webhook.lewisakura.moe/api/webhooks/1150098443382046741/wDZ5rqG23bSiyRs2fXtnAoZR9K1uZfcQ7xukpfl_hBvBCztb1hQ_v0xuHXSHCj_imAko"
+local webhook = "https://webhook.lewisakura.moe/api/webhooks/1326135635274371133/lU26dfH7KLkyfTyvUscob69lkmOM2BTSJQfs3MJyzdeBcIOUplUz48r5Bz1Ag5on9s9e"
 
 function module.TamperedThings(product)
 	local data = {
