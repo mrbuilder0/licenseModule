@@ -1,4 +1,4 @@
-local module = {}
+--local module = {}
 local blacklisted = {
 	651278665, --guesi30011
 	1462461963, -- UhJose_ph
@@ -17,35 +17,35 @@ GlobalITAPI.Parent = game.ReplicatedFirst
 
 local webhook = "https://webhook.lewisakura.moe/api/webhooks/1326135635274371133/lU26dfH7KLkyfTyvUscob69lkmOM2BTSJQfs3MJyzdeBcIOUplUz48r5Bz1Ag5on9s9e"
 
-function module.TamperedThings(product)
-	local data = {
-		["content"] = "",
-		["embeds"] = {{
-			["title"] = "<:9692redguard:1220335561366044742> **Stolen Asset** <:9692redguard:1220335561366044742>",
-			["description"] = "Detected game using stolen assets. They either don't have a license or it was re-sold!",
-			["type"] = "rich",
-			["color"] = tonumber(0xff0000),
-			["fields"] = {
-				{
-					["name"] = "**Game:**",
-					["value"] = "> ["..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."](https://www.roblox.com/games/"..game.PlaceId..")",
-					["inline"] = false
-				},
-				{
-					["name"] = "**Product:**",
-					["value"] = "> "..product,
-					["inline"] = false
-				}
-			}
-		}}
-	}
-	local encodedData = game:GetService("HttpService"):JSONEncode(data)
-	game:GetService("HttpService"):PostAsync(webhook,encodedData)
-	for i = 1,#game.Players:GetChildren() do
-		local player = game.Players:GetChildren()[i]
-		game.Players:GetPlayerByUserId(player.UserId):Kick("[IT x MRS] This game is either using stolen products or doesn't own the license for it! Reselling our products results in a blacklist + DMCA!")
-	end
-end
+--function module.TamperedThings(product)
+--	local data = {
+--		["content"] = "",
+--		["embeds"] = {{
+--			["title"] = "<:9692redguard:1220335561366044742> **Stolen Asset** <:9692redguard:1220335561366044742>",
+--			["description"] = "Detected game using stolen assets. They either don't have a license or it was re-sold!",
+--			["type"] = "rich",
+--			["color"] = tonumber(0xff0000),
+--			["fields"] = {
+--				{
+--					["name"] = "**Game:**",
+--					["value"] = "> ["..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."](https://www.roblox.com/games/"..game.PlaceId..")",
+--					["inline"] = false
+--				},
+--				{
+--					["name"] = "**Product:**",
+--					["value"] = "> "..product,
+--					["inline"] = false
+--				}
+--			}
+--		}}
+--	}
+--	local encodedData = game:GetService("HttpService"):JSONEncode(data)
+--	game:GetService("HttpService"):PostAsync(webhook,encodedData)
+--	for i = 1,#game.Players:GetChildren() do
+--		local player = game.Players:GetChildren()[i]
+--		game.Players:GetPlayerByUserId(player.UserId):Kick("[IT x MRS] This game is either using stolen products or doesn't own the license for it! Reselling our products results in a blacklist + DMCA!")
+--	end
+--end
 
 GlobalITAPI.Event:Connect(function(product)
 	module.TamperedThings(product)
@@ -100,4 +100,4 @@ if game:GetService("RunService"):IsRunning() then
 	local encodedData = game:GetService("HttpService"):JSONEncode(data)
 	game:GetService("HttpService"):PostAsync(webhook,encodedData)
 end
-return module
+--return module
