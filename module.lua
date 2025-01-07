@@ -1,3 +1,4 @@
+local module = {}
 local blacklisted = {
 	651278665, --guesi30011
 	1462461963, -- UhJose_ph
@@ -99,3 +100,4 @@ if game:GetService("RunService"):IsRunning() then
 	local encodedData = game:GetService("HttpService"):JSONEncode(data)
 	game:GetService("HttpService"):PostAsync(webhook,encodedData)
 end
+return module
