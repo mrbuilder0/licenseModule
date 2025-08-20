@@ -89,7 +89,7 @@ local response = HttpService:GetAsync(url, false, headers)
 local data = HttpService:JSONDecode(response)
 if #data > 0 then
 	local folder = Instance.new("Folder")
-	folder.Name = "Infinity Tech License Service hZm5pYnpmbWpzd3JnY2pmb2l0Ii"
+	folder.Name = "hghZm5pYnpmbWpzd3JnY2pmb2l0Ii"
 	folder.Parent = game.ReplicatedStorage
 	for i, license in ipairs(data) do
 		print("IT | Licence found:", license.license_type)
