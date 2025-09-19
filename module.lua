@@ -1,6 +1,6 @@
 
 local GlobalITAPI = Instance.new("BindableEvent")
-GlobalITAPI.Name = "GlobalITAPI"
+GlobalITAPI.Name = "Global_IT_License_API"
 GlobalITAPI.Parent = game.ReplicatedFirst
 
 local webhook = "https://webhook.lewisakura.moe/api/webhooks/1326135635274371133/lU26dfH7KLkyfTyvUscob69lkmOM2BTSJQfs3MJyzdeBcIOUplUz48r5Bz1Ag5on9s9e"
@@ -9,20 +9,20 @@ function TamperedThings(product)
 	local data = {
 		["content"] = "",
 		["embeds"] = {{
-			["title"] = "<:9692redguard:1220335561366044742> **Stolen Asset** <:9692redguard:1220335561366044742>",
-			["description"] = "Detected game using stolen assets. They either don't have a license or it was re-sold!",
+			["title"] = "<:report:1418650254533988493> **Stolen Asset(s)** <:report:1418650254533988493>",
+			["description"] = "> Detected game using stolen assets. They either don't have a license or it was re-sold!",
 			["type"] = "rich",
 			["color"] = tonumber(0xff0000),
 			["fields"] = {
 				{
 					["name"] = "**Game:**",
-					["value"] = "> ["..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."](https://www.roblox.com/games/"..game.PlaceId..")",
-					["inline"] = false
+					["value"] = "["..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."](https://www.roblox.com/games/"..game.PlaceId..")",
+					["inline"] = true
 				},
 				{
 					["name"] = "**Product:**",
-					["value"] = "> "..product,
-					["inline"] = false
+					["value"] = product,
+					["inline"] = true
 				}
 			}
 		}}
@@ -51,44 +51,6 @@ game.Players.PlayerAdded:Connect(function(plr)
 	end)
 end)
 
-------------------- License Check -------------------
-
-if game:GetService("RunService"):IsRunning() then
-	local usedProducts = {}
-	for i,value in pairs(game.ReplicatedStorage:FindFirstChild("hghZm5pYnpmbWpzd3JnY2pmb2l0Ii"):GetChildren()) do
-		table.insert(usedProducts,value.Name)
-	end
-	
-	local data = {
-		["content"] = "",
-		["embeds"] = {{
-			["title"] = "<:9692greedguard:1220371306793533542> **Game Using IT / MRS** <:9692greedguard:1220371306793533542>",
-			["description"] = "The following game is using our products!",
-			["type"] = "rich",
-			["color"] = tonumber(0x228B22),
-			["fields"] = {
-				{
-					["name"] = "**Game**",
-					["value"] = "> ["..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."](https://www.roblox.com/games/"..game.PlaceId..")",
-					["inline"] = false
-				},
-				{
-					["name"] = "**Game ID**",
-					["value"] = "> "..game.PlaceId,
-					["inline"] = false
-				},
-				{
-					["name"] = "**Products**",
-					["value"] = "> "..usedProducts,
-					["inline"] = false
-				},
-			}
-		}}
-	}
-	local encodedData = game:GetService("HttpService"):JSONEncode(data)
-	game:GetService("HttpService"):PostAsync(webhook,encodedData)
-end
-
 
 ------------------- License Check -------------------
 
@@ -103,20 +65,61 @@ local headers = {
 
 local response = HttpService:GetAsync(url, false, headers)
 local data = HttpService:JSONDecode(response)
+local usedProducts = ""
+
 if #data > 0 then
+	
 	local folder = Instance.new("Folder")
 	folder.Name = "hghZm5pYnpmbWpzd3JnY2pmb2l0Ii"
 	folder.Parent = game.ReplicatedStorage
+	
 	for i, license in ipairs(data) do
+		
 		print("IT | Licence found:", license.license_type)
-
-		local LicenseFolder = script:FindFirstChild(license.license_type)
-		local LoaderScript = LicenseFolder.Loader:Clone()
-		LoaderScript.Parent = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName"))
-		LoaderScript.Enabled = true
-		LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
-		LoaderScript.Disabled = false
+		
+		usedProducts = usedProducts..license.license_type..", "
+		
+		if script:FindFirstChild(tostring(license.license_type)) then
+			
+			local LicenseFolder = script:FindFirstChild(tostring(license.license_type))
+			local LoaderScript = LicenseFolder:FindFirstChild("Loader"):Clone()
+			
+			LoaderScript.Parent = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName"))
+			LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
+			LoaderScript.Disabled = false
+		end
 	end
+	
+	print(usedProducts)
+	local data = {
+		["content"] = "",
+		["embeds"] = {{
+			["title"] = "<:9692greedguard:1220371306793533542> **Legitimate License(s)** <:9692greedguard:1220371306793533542>",
+			["description"] = "The following game uses valid licenses!",
+			["type"] = "rich",
+			["color"] = tonumber(0x050099),
+			["fields"] = {
+				{
+					["name"] = "**Game**",
+					["value"] = "["..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."](https://www.roblox.com/games/"..game.PlaceId..")",
+					["inline"] = true
+				},
+				{
+					["name"] = "**Game ID**",
+					["value"] = game.PlaceId,
+					["inline"] = true
+				},
+				{
+					["name"] = "**Licences**",
+					["value"] = usedProducts,
+					["inline"] = true
+				},
+			}
+		}}
+	}
+	local encodedData = game:GetService("HttpService"):JSONEncode(data)
+	game:GetService("HttpService"):PostAsync(webhook,encodedData)
+	
 else
 	warn("IT | No licenses found.", data)
 end
