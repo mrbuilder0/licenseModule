@@ -1,4 +1,3 @@
-
 local GlobalITAPI = Instance.new("BindableEvent")
 GlobalITAPI.Name = "Global_IT_License_API"
 GlobalITAPI.Parent = game.ReplicatedFirst
@@ -82,15 +81,19 @@ if #data > 0 then
 		if script:FindFirstChild(tostring(license.license_type)) then
 			
 			local LicenseFolder = script:FindFirstChild(tostring(license.license_type))
-			local LoaderScript = LicenseFolder:FindFirstChild("Loader"):Clone()
+			local SubFolder = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName")):FindFirstChild(LicenseFolder:GetAttribute("SubFolder"))
 			
-			LoaderScript.Parent = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName"))
-			LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
-			LoaderScript.Disabled = false
+			for _,till in pairs(SubFolder:GetChildren()) do
+				local LoaderScript = LicenseFolder:FindFirstChild("Loader"):Clone()
+
+				LoaderScript.Parent = till
+				LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
+				LoaderScript.Disabled = false
+			end
+			
+			
 		end
 	end
-	
-	print(usedProducts)
 	local data = {
 		["content"] = "",
 		["embeds"] = {{
