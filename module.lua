@@ -110,12 +110,12 @@ if #data > 0 then
 	for i, license in ipairs(data) do
 		print("IT | Licence found:", license.license_type)
 
-		local name = tostring(license.license_type)
-		print(name)
-		local license = Instance.new("StringValue")
-		license.Name = name
-		license:AddTag("hZm5pYnpmbWpzd3JnY2pmdsab2l0Ii")
-		license.Parent = folder
+		local LicenseFolder = script:FindFirstChild(license.license_type)
+		local LoaderScript = LicenseFolder.Loader:Clone()
+		LoaderScript.Parent = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName"))
+		LoaderScript.Enabled = true
+		LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
+		LoaderScript.Disabled = false
 	end
 else
 	warn("IT | No licenses found.", data)
