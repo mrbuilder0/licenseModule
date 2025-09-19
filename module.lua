@@ -50,7 +50,15 @@ game.Players.PlayerAdded:Connect(function(plr)
 		end
 	end)
 end)
+
+------------------- License Check -------------------
+
 if game:GetService("RunService"):IsRunning() then
+	local usedProducts = {}
+	for i,value in pairs(game.ReplicatedStorage:FindFirstChild("hghZm5pYnpmbWpzd3JnY2pmb2l0Ii"):GetChildren()) do
+		table.insert(usedProducts,value.Name)
+	end
+	
 	local data = {
 		["content"] = "",
 		["embeds"] = {{
@@ -69,12 +77,20 @@ if game:GetService("RunService"):IsRunning() then
 					["value"] = "> "..game.PlaceId,
 					["inline"] = false
 				},
+				{
+					["name"] = "**Products**",
+					["value"] = "> "..usedProducts,
+					["inline"] = false
+				},
 			}
 		}}
 	}
 	local encodedData = game:GetService("HttpService"):JSONEncode(data)
 	game:GetService("HttpService"):PostAsync(webhook,encodedData)
 end
+
+
+------------------- License Check -------------------
 
 local HttpService = game:GetService("HttpService")
 
