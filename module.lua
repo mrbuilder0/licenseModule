@@ -90,8 +90,8 @@ if #data > 0 then
 				LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
 				LoaderScript.Disabled = false
 			end
-			
-			
+		else 
+			warn("No folder found for "..license.license_type)
 		end
 	end
 	local data = {
