@@ -94,10 +94,10 @@ if #data > 0 then
 				end
 			
 			else
-				warn("No product folder found for"..license.license_type)
+				warn("IT | No product folder found for"..license.license_type)
 			end
 		else 
-			warn("No loading folder found for "..license.license_type)
+			warn("IT | No source folder found for "..license.license_type)
 		end
 	end
 	local data = {
