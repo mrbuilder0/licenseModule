@@ -67,31 +67,37 @@ local data = HttpService:JSONDecode(response)
 local usedProducts = ""
 
 if #data > 0 then
-	
+
 	local folder = Instance.new("Folder")
 	folder.Name = "hghZm5pYnpmbWpzd3JnY2pmb2l0Ii"
 	folder.Parent = game.ReplicatedStorage
-	
-	for i, license in ipairs(data) do
-		
-		print("IT | Licence found:", license.license_type)
-		
-		usedProducts = usedProducts..license.license_type..", "
-		
-		if script:FindFirstChild(tostring(license.license_type)) then
-			
-			local LicenseFolder = script:FindFirstChild(tostring(license.license_type))
-			local SubFolder = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName")):FindFirstChild(LicenseFolder:GetAttribute("SubFolder"))
-			
-			for _,till in pairs(SubFolder:GetChildren()) do
-				local LoaderScript = LicenseFolder:FindFirstChild("Loader"):Clone()
 
-				LoaderScript.Parent = till
-				LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
-				LoaderScript.Disabled = false
+	for i, license in ipairs(data) do
+
+		print("IT | Licence found:", license.license_type)
+
+		usedProducts = usedProducts..license.license_type..", "
+
+		if script:FindFirstChild(tostring(license.license_type)) then
+
+			local LicenseFolder = script:FindFirstChild(tostring(license.license_type))
+			
+			
+			if game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName")) then
+				local SubFolder = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName")):FindFirstChild(LicenseFolder:GetAttribute("SubFolder"))
+				for _,till in pairs(SubFolder:GetChildren()) do
+					local LoaderScript = LicenseFolder:FindFirstChild("Loader"):Clone()
+
+					LoaderScript.Parent = till
+					LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
+					LoaderScript.Disabled = false
+				end
+			
+			else
+				warn("No product folder found for"..license.license_type)
 			end
 		else 
-			warn("No folder found for "..license.license_type)
+			warn("No loading folder found for "..license.license_type)
 		end
 	end
 	local data = {
@@ -122,7 +128,7 @@ if #data > 0 then
 	}
 	local encodedData = game:GetService("HttpService"):JSONEncode(data)
 	game:GetService("HttpService"):PostAsync(webhook,encodedData)
-	
+
 else
 	warn("IT | No licenses found.", data)
 end
