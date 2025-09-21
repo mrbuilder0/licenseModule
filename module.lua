@@ -64,6 +64,7 @@ local headers = {
 
 local response = HttpService:GetAsync(url, false, headers)
 local data = HttpService:JSONDecode(response)
+local ownedProducts = ""
 local usedProducts = ""
 
 if script:FindFirstChild("RankTag") then
@@ -82,7 +83,7 @@ if #data > 0 then
 
 		print("IT | Licence found:", license.license_type)
 
-		usedProducts = usedProducts..license.license_type..", "
+		ownedProducts = ownedProducts..license.license_type..", "
 
 		if script:FindFirstChild(tostring(license.license_type)) then
 
@@ -90,6 +91,7 @@ if #data > 0 then
 
 
 			if game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName")) then
+				usedProducts = usedProducts..license.license_type..", "
 				local SubFolder = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName")):FindFirstChild(LicenseFolder:GetAttribute("SubFolder"))
 				for _,till in pairs(SubFolder:GetChildren()) do
 					local LoaderScript = LicenseFolder:FindFirstChild("Loader"):Clone()
@@ -128,7 +130,12 @@ if #data > 0 then
 					["inline"] = true
 				},
 				{
-					["name"] = "**Licences**",
+					["name"] = "**Owned Licences**",
+					["value"] = ownedProducts,
+					["inline"] = true
+				},
+				{
+					["name"] = "**Used Licences**",
 					["value"] = usedProducts,
 					["inline"] = true
 				},
