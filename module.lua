@@ -130,6 +130,11 @@ if #data > 0 then
 					["inline"] = true
 				},
 				{
+					["name"] = "**Studio**",
+					["value"] = game:GetService("RunService"):IsStudio()
+					["inline"] = true
+				},
+				{
 					["name"] = "**Owned Licences**",
 					["value"] = ownedProducts,
 					["inline"] = false
