@@ -131,7 +131,7 @@ if #data > 0 then
 				},
 				{
 					["name"] = "**Studio**",
-					["value"] = game:GetService("RunService"):IsStudio()
+					["value"] = game:GetService("RunService"):IsStudio(),
 					["inline"] = true
 				},
 				{
