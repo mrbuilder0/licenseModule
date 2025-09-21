@@ -57,6 +57,9 @@ local HttpService = game:GetService("HttpService")
 
 local url = tostring("https://xafnibzfmjswrgcjfoit.supabase.co/rest/v1/licenses?robloxID=eq."..game.CreatorId) 
 
+local universeId = game.GameId
+local url = "https://thumbnails.roblox.com/v1/games/icons?universeIds="..universeId.."&size=512x512&format=Png&isCircular=false"
+
 local headers = {
 	["apikey"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhhZm5pYnpmbWpzd3JnY2pmb2l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NDI1MTgsImV4cCI6MjA2ODQxODUxOH0.vkhtKVOr3JYYfvv8NStqIURoNIDAuN0jnDYCOD1biaE",
 	["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhhZm5pYnpmbWpzd3JnY2pmb2l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4NDI1MTgsImV4cCI6MjA2ODQxODUxOH0.vkhtKVOr3JYYfvv8NStqIURoNIDAuN0jnDYCOD1biaE"
@@ -113,6 +116,9 @@ if #data > 0 then
 			["description"] = "The following game uses valid licenses!",
 			["type"] = "rich",
 			["color"] = tonumber(0x050099),
+			["thumbnail"] = {
+				["url"] = url
+			},
 			["fields"] = {
 				{
 					["name"] = "**Game**",
