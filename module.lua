@@ -68,6 +68,8 @@ local usedProducts = ""
 
 if script:FindFirstChild("RankTag") then
 	usedProducts = usedProducts.."RankTag, "
+	
+	script.RankTag.Loader.Enabled = true
 end
 
 if #data > 0 then
