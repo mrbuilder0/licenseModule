@@ -132,12 +132,12 @@ if #data > 0 then
 				{
 					["name"] = "**Owned Licences**",
 					["value"] = ownedProducts,
-					["inline"] = true
+					["inline"] = false
 				},
 				{
 					["name"] = "**Used Licences**",
 					["value"] = usedProducts,
-					["inline"] = true
+					["inline"] = false
 				},
 			}
 		}}
