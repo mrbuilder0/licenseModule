@@ -66,6 +66,10 @@ local response = HttpService:GetAsync(url, false, headers)
 local data = HttpService:JSONDecode(response)
 local usedProducts = ""
 
+if script:FindFirstChild("RankTag") then
+	usedProducts = usedProducts.."RankTag, "
+end
+
 if #data > 0 then
 
 	local folder = Instance.new("Folder")
@@ -81,8 +85,8 @@ if #data > 0 then
 		if script:FindFirstChild(tostring(license.license_type)) then
 
 			local LicenseFolder = script:FindFirstChild(tostring(license.license_type))
-			
-			
+
+
 			if game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName")) then
 				local SubFolder = game.Workspace:FindFirstChild(LicenseFolder:GetAttribute("LocName")):FindFirstChild(LicenseFolder:GetAttribute("SubFolder"))
 				for _,till in pairs(SubFolder:GetChildren()) do
@@ -92,7 +96,7 @@ if #data > 0 then
 					LoaderScript:AddTag("hghZm5pYnpmbWpzd3JnY2pmb2l0Iidsadwa")
 					LoaderScript.Disabled = false
 				end
-			
+
 			else
 				warn("IT | No product folder found for"..license.license_type)
 			end
